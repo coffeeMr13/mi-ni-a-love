@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#FFE5EC">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="description" content="Un espacio especial lleno de amor">
+    <title>Mi Niña 💕</title>
+    <link rel="stylesheet" href="love.css">
+    
+    <!-- Preload de imagen crítica -->
+    <link rel="preload" as="image" href="arbollove.png">
+</head>
+<body>
+    <!-- Corazones cayendo de fondo -->
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+    <div class="heart">♥</div>
+
+    <!-- Contenido principal -->
+    <div class="main-content">
+        <!-- Título principal -->
+        <h1 class="main-title">Mi Niña 💖</h1>
+        
+        <!-- Texto romántico -->
+        <div class="romantic-text">
+            <p>Mi niña, mi amor, mi vida, mi todo. Eres la luz que ilumina mis días y la razón de mi felicidad. Cada momento a tu lado es un regalo que atesoro con todo mi corazón. Te amo más de lo que las palabras pueden expresar.</p>
+        </div>
+
+        <!-- Container con árbol y contador -->
+        <div class="container">
+            <!-- Árbol con imagen -->
+            <div class="tree-container">
+                <img src="arbollove.png" alt="Árbol del Amor" class="tree-image" loading="eager">
+                
+                <!-- Partículas flotantes -->
+                <div class="tree-particles">
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                    <div class="particle"></div>
+                </div>
+            </div>
+
+            <!-- Contador de tiempo -->
+            <div class="counter-container">
+                <h2 class="counter-title">💕 Nuestro Tiempo Juntos</h2>
+                
+                <div class="time-display">
+                    <div class="time-unit">
+                        <span class="time-value" id="years">0</span>
+                        <span class="time-label">Años</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-value" id="months">0</span>
+                        <span class="time-label">Meses</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-value" id="days">0</span>
+                        <span class="time-label">Días</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-value" id="hours">0</span>
+                        <span class="time-label">Horas</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-value" id="minutes">0</span>
+                        <span class="time-label">Minutos</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-value" id="seconds">0</span>
+                        <span class="time-label">Segundos</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // 🔒 CONFIGURACIÓN DE FECHA (Solo tú puedes modificar)
+        // ============================================
+        // Cambia la fecha aquí en formato: 'YYYY-MM-DD'
+        const START_DATE = '2024-11-29';
+        // ============================================
+
+        // Calcular diferencia de tiempo de forma optimizada
+        function calculateTimeDifference(startDate) {
+            const now = new Date();
+            const start = new Date(startDate);
+            
+            // Calcular años y meses
+            let years = now.getFullYear() - start.getFullYear();
+            let months = now.getMonth() - start.getMonth();
+            let days = now.getDate() - start.getDate();
+            
+            // Ajustar si los días son negativos
+            if (days < 0) {
+                months--;
+                const prevMonth = new Date(now.getFullYear(), now.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+            
+            // Ajustar si los meses son negativos
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            
+            // Calcular horas, minutos y segundos actuales
+            const hours = now.getHours() - start.getHours();
+            const minutes = now.getMinutes() - start.getMinutes();
+            const seconds = now.getSeconds();
+            
+            return {
+                years: years,
+                months: months,
+                days: days,
+                hours: hours >= 0 ? hours : 24 + hours,
+                minutes: minutes >= 0 ? minutes : 60 + minutes,
+                seconds: seconds
+            };
+        }
+
+        // Cache de elementos DOM
+        const elements = {
+            years: document.getElementById('years'),
+            months: document.getElementById('months'),
+            days: document.getElementById('days'),
+            hours: document.getElementById('hours'),
+            minutes: document.getElementById('minutes'),
+            seconds: document.getElementById('seconds')
+        };
+
+        // Actualizar contador (optimizado)
+        function updateCounter() {
+            const timeDiff = calculateTimeDifference(START_DATE);
+            
+            // Solo actualizar si el valor cambió
+            if (elements.years.textContent !== String(timeDiff.years)) {
+                elements.years.textContent = timeDiff.years;
+            }
+            if (elements.months.textContent !== String(timeDiff.months)) {
+                elements.months.textContent = timeDiff.months;
+            }
+            if (elements.days.textContent !== String(timeDiff.days)) {
+                elements.days.textContent = timeDiff.days;
+            }
+            if (elements.hours.textContent !== String(timeDiff.hours)) {
+                elements.hours.textContent = timeDiff.hours;
+            }
+            if (elements.minutes.textContent !== String(timeDiff.minutes)) {
+                elements.minutes.textContent = timeDiff.minutes;
+            }
+            // Segundos siempre se actualizan
+            elements.seconds.textContent = timeDiff.seconds;
+        }
+
+        // Inicializar cuando la página cargue
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+        function init() {
+            updateCounter();
+            setInterval(updateCounter, 1000);
+        }
+
+        // Prevenir zoom accidental en iOS
+        document.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
